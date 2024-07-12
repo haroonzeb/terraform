@@ -1,0 +1,25 @@
+- name: Install necessary software packages
+  hosts: webservers
+  become: yes
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+    - name: Install required packages
+      apt:
+        name:
+          - python3
+          - python3-pip
+          - docker.io
+        state: present
+
+---
+rds_endpoint: "staging-db-instance.abcdefg12345.us-east-1.rds.amazonaws.com"
+rds_username: "staging_user"
+rds_password: "staging_password"
+rds_db_name: "staging_db"
+vars/production.yml:
+rds_endpoint: "production-db-instance.abcdefg12345.us-east-1.rds.amazonaws.com"
+rds_username: "production_user"
+rds_password: "production_password"
+rds_db_name: "production_db"

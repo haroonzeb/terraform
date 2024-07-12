@@ -1,0 +1,15 @@
+- name: Configure the application to connect to the RDS instance
+  hosts: webservers
+  become: yes
+  vars:
+    db_host: "{{ rds_endpoint }}"
+    db_user: "{{ rds_username }}"
+    db_password: "{{ rds_password }}"
+    db_name: "{{ rds_db_name }}"
+
+  tasks:
+    - name: Create application configuration file
+      template:
+        src: app_config.j2
+        dest: /etc/myapp/config.cfg
+        mode: '0644'
